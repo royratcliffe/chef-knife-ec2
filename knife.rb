@@ -10,5 +10,5 @@
 enclosing_folder = File.dirname(__FILE__)
 validation_pem = Dir["#{enclosing_folder}/*-validat{or,ion}.pem"][0]
 client_pem = Dir["#{enclosing_folder}/*-client.pem"][0]
-organisation = File.basename(validation_pem, ".pem").gsub(/-.*/, "")
-client = File.basename(client_pem, ".pem").gsub(/-.*/, "")
+organisation = File.basename(validation_pem, File.extname(validation_pem)).gsub(/-.*/, "")
+client = File.basename(client_pem, File.extname(client_pem)).gsub(/-.*/, "")
