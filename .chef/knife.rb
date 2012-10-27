@@ -23,3 +23,24 @@ chef_server_url          "https://api.opscode.com/organizations/#{organisation}"
 cache_type               'BasicFile'
 cache_options( :path => "#{ENV['HOME']}/.chef/checksums" )
 cookbook_path            ["#{enclosing_folder}/../cookbooks"]
+
+# Amazon Web Services
+#
+# Pull the Amazon access keys from the Unix environment. Do not embed the keys
+# within the source tree. Otherwise the keys will appear within the Git
+# repository. Not wise. Instead, first load the environment by storing the keys
+# within an external script, for example. Source the script then run Knife
+# commands.
+#
+# Use a shell script containing the following; see exports below. With the
+# environment loaded, you can use Knife to list the EC2 server nodes using
+# "knife ec2 server list". You will need to install the Knife gem as well as the
+# knife-ec2 gem which adds EC2 support for Chef's Knife command.
+#
+#   export AWS_SSH_KEY_ID="XXXXXXXXXXXXXXXXXXXX"
+#   export AWS_ACCESS_KEY_ID="XXXXXXXXXXXXXXXXXXXX"
+#   export AWS_SECRET_ACCESS_KEY="XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+#
+knife[:aws_ssh_key_id] = ENV['AWS_SSH_KEY_ID']
+knife[:aws_access_key_id] = ENV['AWS_ACCESS_KEY_ID']
+knife[:aws_secret_access_key] = ENV['AWS_SECRET_ACCESS_KEY']
