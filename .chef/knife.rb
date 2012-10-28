@@ -13,16 +13,17 @@ client_pem = Dir["#{enclosing_folder}/*-client.pem"][0]
 organisation = File.basename(validation_pem, File.extname(validation_pem)).gsub(/-.*/, "")
 client = File.basename(client_pem, File.extname(client_pem)).gsub(/-.*/, "")
 
-log_level                :info
-log_location             STDOUT
-node_name                client
-client_key               client_pem
-validation_client_name   "#{organisation}-validator"
-validation_key           validation_pem
-chef_server_url          "https://api.opscode.com/organizations/#{organisation}"
-cache_type               'BasicFile'
-cache_options( :path => "#{ENV['HOME']}/.chef/checksums" )
-cookbook_path            ["#{enclosing_folder}/../cookbooks"]
+verbosity               0 # 0=error 1=info 2=debug
+log_level               :info
+log_location            STDERR
+node_name               client
+client_key              client_pem
+validation_client_name  "#{organisation}-validator"
+validation_key          validation_pem
+chef_server_url         "https://api.opscode.com/organizations/#{organisation}"
+cache_type              'BasicFile'
+cache_options           :path => "#{ENV['HOME']}/.chef/checksums"
+cookbook_path           ["#{enclosing_folder}/../cookbooks"]
 
 # Amazon Web Services
 #
